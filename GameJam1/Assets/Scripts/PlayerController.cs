@@ -6,7 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private float inputHorizontal;
     private float inputVertical;
-    private float rotationSpeed = 100;
+    private float rotationSpeed = 200;
     private float speed = 10;
     private int vidas = 3;
     private Vector3 posicionInicial;
@@ -40,7 +40,7 @@ public class PlayerController : MonoBehaviour
             muerte();
         }
         contador += Time.deltaTime;
-        print(contador);
+       
     }
 
     void ataque(){
@@ -54,10 +54,14 @@ public class PlayerController : MonoBehaviour
         
     }
 
+
     private void OnCollisionEnter(Collision other) {
-        if(other.gameObject.CompareTag("Enemy")){
+        if(other.gameObject.CompareTag("enemy")){
 
             vidas -= 1;
+            print(vidas);
+            print("auch");
+            
         }
     }
 

@@ -25,7 +25,7 @@ public class Ataque : MonoBehaviour
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")) {
+        if (collision.gameObject.CompareTag("enemy")) {
             GameObject.Destroy(collision.gameObject);
             GameObject.Destroy(gameObject);
         }
