@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public GameObject prefabAtaque;
     private float enfriamientoAtaque = 1f;
     float contador = 0;
-    Vector3 offSet = new Vector3(2, 2, 0);
+    Vector3 offSet = new Vector3(0, 2, 2);
     Animator animatorPlayer;
     public int llaves;
     bool muerto = false;
@@ -41,14 +41,13 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * inputVertical * speed * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.Space)) {
             ataque();
-            playerAudio.PlayOneShot(shotSound,1.0F);
+            //playerAudio.PlayOneShot(shotSound,1.0f);
             
         }
         if (vidas <= 0) {
             muerte();
         }
         contador += Time.deltaTime;
-       
     }
 
     void ataque()

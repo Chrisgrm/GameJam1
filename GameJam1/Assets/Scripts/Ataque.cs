@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+
 public class Ataque : MonoBehaviour
-{
+{   
+    public ParticleSystem blood;
     private Transform playerController;
     float ataqueSpeed = 15;
     Vector3 direction;
@@ -26,12 +29,21 @@ public class Ataque : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("enemy")) {
-            GameObject.Destroy(collision.gameObject);
-            GameObject.Destroy(gameObject);
+            blood.Play();
+            Destroy(collision.gameObject);
+            StartCoroutine(DestroyThis());
+
         }
-        else {
-            GameObject.Destroy(gameObject);        
+        if(collision.gameObject) 
+        {
+            Destroy(gameObject);        
         }
 
+
+    }
+    IEnumerator DestroyThis()
+    {
+        yield return new WaitForSeconds(0.6f);
+        Destroy(this.gameObject);
     }
 }

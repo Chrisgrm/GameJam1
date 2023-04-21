@@ -8,6 +8,7 @@ public class enemy : MonoBehaviour
     [SerializeField] GameObject transformPlayer; //Position Player
     NavMeshAgent enemyAi; //Invocamos Navmesh 
     private Animator enemyAnim; //Llamamoss animacion 
+    
     [SerializeField] float distanceToPlayer;
 
     void Start()
@@ -21,7 +22,7 @@ public class enemy : MonoBehaviour
     {
         distanceToPlayer = Vector3.Distance(transform.position, transformPlayer.transform.position);
 
-        if (distanceToPlayer < 5) //Condicionamos el arranque
+        if (distanceToPlayer < 20) //Condicionamos el arranque
         {
             enemyAi.speed = 3;
             enemyAi.SetDestination(transformPlayer.transform.position); //Definimos el destino
@@ -35,12 +36,4 @@ public class enemy : MonoBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision other)
-    {
-       
-        //if (other.gameObject.CompareTag("Disparo"))
-        //{
-        //    Destroy(this.gameObject);
-        //}
-    }
 }
