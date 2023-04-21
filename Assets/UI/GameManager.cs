@@ -3,12 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
+
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField]string nameScene;
     PlayerController playerCs;
     TextMeshProUGUI keyNumber;
+    public Button restarButton;
+    public TextMeshProUGUI gameOverText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -36,8 +41,11 @@ public class GameManager : MonoBehaviour
         keyNumber.text = " " + playerCs.llaves;
     }
 
-    void ContadorVidas()
-    {
 
+    public void Gameover()
+    {
+        gameOverText.gameObject.SetActive(true);
+        restarButton.gameObject.SetActive(true);
+         
     }
 }
