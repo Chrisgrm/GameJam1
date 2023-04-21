@@ -8,6 +8,7 @@ public class enemy : MonoBehaviour
     [SerializeField]Transform transformPlayer; //Position Player
     NavMeshAgent enemyAi; //Invocamos Navmesh 
     private Animator enemyAnim; //Llamamoss animacion 
+    [SerializeField]float distanceToPlayer;
 
     void Start()
     {
@@ -18,10 +19,18 @@ public class enemy : MonoBehaviour
     
     void Update()
     {
-        enemyAi.SetDestination(transformPlayer.position); //Definimos el destino
-        if(enemyAi.speed > 0) //Condicionamos el arranque
+        distanceToPlayer = Vector3.Distance(transform.position, transformPlayer.position);
+        
+        if(distanceToPlayer < 5) //Condicionamos el arranque
         {
+            enemyAi.speed = 3;
+            enemyAi.SetDestination(transformPlayer.position); //Definimos el destino
             enemyAnim.SetFloat("Speed", 0.15f);
+        }
+        else
+        {
+            enemyAi.speed = 0; //Definimos que no ande
+            enemyAnim.SetFloat("Speed", 0f); //Volvemos speed 0 para que no quede animado corriendo
         }
         
     }
