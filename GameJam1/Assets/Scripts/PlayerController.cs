@@ -17,10 +17,17 @@ public class PlayerController : MonoBehaviour
     Animator animatorPlayer;
     public int llaves;
     bool muerto = false;
+    private AudioSource playerAudio;
+    public AudioClip shotSound;
+    public AudioClip keySound;
+    public AudioClip muerteSound;
+    public AudioClip zombieAttackSound;
+    public ParticleSystem keyParticle;
 
     void Start()
     {
         animatorPlayer = GetComponent<Animator>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -34,6 +41,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * inputVertical * speed * Time.deltaTime);
         if (Input.GetKeyDown(KeyCode.Space)) {
             ataque();
+            playerAudio.PlayOneShot(shotSound,1.0F);
             
         }
         if (vidas <= 0) {
@@ -43,7 +51,8 @@ public class PlayerController : MonoBehaviour
        
     }
 
-    void ataque(){
+    void ataque()
+    {
 
 
         if (contador > enfriamientoAtaque)
@@ -55,19 +64,21 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    private void OnCollisionEnter(Collision other) {
+    private void OnCollisionEnter(Collision other) 
+    {
         if(other.gameObject.CompareTag("enemy")){
 
             vidas -= 1;
             print(vidas);
             print("auch");
-            
+            playerAudio.PlayOneShot(zombieAttackSound,1.0F);
         }
     }
 
-    private void muerte(){
+    private void muerte()
+    {
         muerto = true;
-        
+        playerAudio.PlayOneShot(muerteSound,1.0F);
 
     }
 
@@ -77,6 +88,9 @@ public class PlayerController : MonoBehaviour
             print("holaaaa");
             Destroy(other.gameObject);
             llaves += 1;
+            playerAudio.PlayOneShot(keySound,1.0F);
+            keyParticle.Play();
+
         }
     }
 
