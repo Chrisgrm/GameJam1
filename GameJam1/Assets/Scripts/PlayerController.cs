@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     private float rotationSpeed = 200;
     private float speed = 10;
     private int vidas = 3;
-    private Vector3 posicionInicial;
+    private Vector3 updatePosition;
     public GameObject prefabAtaque;
     private float enfriamientoAtaque = 1f;
     float contador = 0;
@@ -23,9 +23,13 @@ public class PlayerController : MonoBehaviour
     public AudioClip muerteSound;
     public AudioClip zombieAttackSound;
     public ParticleSystem keyParticle;
+    private Rigidbody rb;
+    private Transform atackPosition;
 
     void Start()
     {
+        atackPosition = GameObject.Find("AtackPosition").GetComponent<Transform>();
+        rb = GetComponent<Rigidbody>();
         animatorPlayer = GetComponent<Animator>();
         playerAudio = GetComponent<AudioSource>();
     }
@@ -33,12 +37,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         inputHorizontal = Input.GetAxis("Horizontal");
-
         inputVertical = Input.GetAxis("Vertical");
-        animatorPlayer.SetFloat("speedWalk", inputVertical);
+        updatePosition = new Vector3(0, 0, inputVertical);
+        animatorPlayer.SetFloat("speedWalk", inputVertical);        
         transform.Rotate(Vector3.up * inputHorizontal * rotationSpeed * Time.deltaTime);
-        transform.Translate(Vector3.forward * inputVertical * speed * Time.deltaTime);
+        
         if (Input.GetKeyDown(KeyCode.Space)) {
             ataque();
             //playerAudio.PlayOneShot(shotSound,1.0f);
@@ -50,13 +55,19 @@ public class PlayerController : MonoBehaviour
         contador += Time.deltaTime;
     }
 
+    private void FixedUpdate()
+    {
+        transform.Translate(Vector3.forward * inputVertical * speed * Time.deltaTime);
+        //rb.AddForce(updatePosition * speed, ForceMode.Impulse);
+    }
+
     void ataque()
     {
 
 
         if (contador > enfriamientoAtaque)
         {
-            Instantiate(prefabAtaque, transform.position + offSet, Quaternion.identity);
+            Instantiate(prefabAtaque, atackPosition.position , Quaternion.identity);
             contador = 0;
         }
         
@@ -70,9 +81,14 @@ public class PlayerController : MonoBehaviour
             vidas -= 1;
             print(vidas);
             print("auch");
-            playerAudio.PlayOneShot(zombieAttackSound,1.0F);
+            //playerAudio.PlayOneShot(zombieAttackSound,1.0F);
+        }
+        if (other.gameObject.CompareTag("muros"))
+        {
+            print("toca muro");
         }
     }
+   
 
     private void muerte()
     {
