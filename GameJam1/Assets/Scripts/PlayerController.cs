@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Space)) {
             ataque();
-            //playerAudio.PlayOneShot(shotSound,1.0f);
+            
             
         }
         if (vidas <= 0) {
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             Instantiate(prefabAtaque, atackPosition.position , Quaternion.identity);
             contador = 0;
+            playerAudio.PlayOneShot(shotSound,1.0f);
         }
         
     }
