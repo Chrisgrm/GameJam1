@@ -711,7 +711,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90ab341d7deea894b9a2ec88d797e140, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transformPlayer: {fileID: 19109668709629983, guid: 8ee4d44e4b5e47e4fbeec0ac17ec59b2, type: 3}
+  transformPlayer: {fileID: 0}
+  blood: {fileID: 1622506754780815864, guid: 015d80defdee4604abdc8801d0df57f7, type: 3}
   distanceToPlayer: 0
 --- !u!195 &4260288014909917035
 NavMeshAgent:

@@ -8,7 +8,8 @@ public class enemy : MonoBehaviour
     [SerializeField] GameObject transformPlayer; //Position Player
     NavMeshAgent enemyAi; //Invocamos Navmesh 
     private Animator enemyAnim; //Llamamoss animacion 
-    
+    public ParticleSystem blood;
+
     [SerializeField] float distanceToPlayer;
 
     void Start()
@@ -34,6 +35,18 @@ public class enemy : MonoBehaviour
             enemyAnim.SetFloat("Speed", 0f); //Volvemos speed 0 para que no quede animado corriendo
         }
 
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("ataque"))
+        {
+            
+        }
+    }
+    private void OnDestroy()
+    {
+        blood.Play();
     }
 
 }

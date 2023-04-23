@@ -7,6 +7,7 @@ using UnityEngine;
 public class Ataque : MonoBehaviour
 {   
     public ParticleSystem blood;
+    public GameObject bloodObject;
     private Transform playerController;
     float ataqueSpeed = 15;
     Vector3 direction;
@@ -29,21 +30,25 @@ public class Ataque : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("enemy")) {
-            blood.Play();
+
+
+            bloodObject.SetActive(true);
             Destroy(collision.gameObject);
-            //StartCoroutine(DestroyThis());
+            StartCoroutine(DestroyThis());
 
         }
-        if(collision.gameObject) 
+        if(collision.gameObject.CompareTag("muros")) 
         {
-            Destroy(gameObject);        
+
+            Destroy(this.gameObject);
         }
 
 
     }
     IEnumerator DestroyThis()
     {
-        yield return new WaitForSeconds(5f);
+        
+        yield return new WaitForSeconds(0.3f);
         Destroy(this.gameObject);
     }
 }
