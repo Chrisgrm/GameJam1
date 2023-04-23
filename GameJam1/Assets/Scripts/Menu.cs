@@ -12,7 +12,12 @@ public class Menu : MonoBehaviour
     public GameObject panelInstructions;
     public GameObject panelPrincial;
 
+    private void Start()
+    {
+        instructionsButton.onClick.AddListener(activateInstructions);
+        nextButton.onClick.AddListener(activateNextButton);
 
+    }
     void activateInstructions()
     {
         panelInstructions.SetActive(true);

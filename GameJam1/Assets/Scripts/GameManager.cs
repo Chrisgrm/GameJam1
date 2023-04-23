@@ -20,6 +20,7 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.Find("Player").GetComponent<PlayerController>();
         exitDoor = GameObject.Find("exitDoor");
+        restartButton.onClick.AddListener(resetGame);
     }
 
     // Update is called once per frame
@@ -75,11 +76,11 @@ public class GameManager : MonoBehaviour
 
         //keyText.text = player.llaves + "/3"; 
     }
-     void verificadorDeGameOver()
+    void verificadorDeGameOver()
     {
         if (player.muerto)
         {
-            panelGameOver.SetActive(true);           
+            panelGameOver.SetActive(true);
         }
     }
 
@@ -95,4 +96,9 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void resetGame()
+    {
+        SceneManager.LoadScene("Laberinto0.1");
+    }
+            
 }

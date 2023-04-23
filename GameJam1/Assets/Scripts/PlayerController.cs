@@ -38,7 +38,6 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
         
@@ -87,7 +86,10 @@ public class PlayerController : MonoBehaviour
     {
         if(other.gameObject.CompareTag("enemy")){
 
-            vidas -= 1;
+            if(vidas>0)
+            {
+                vidas -= 1;
+            }           
             if (!muerto)
             {
                 playerAudio.PlayOneShot(zombieAttackSound, 1.0F);
@@ -105,8 +107,6 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(muerteSound, 1.0F);
             muertoSound = true;
         }
-        
-
     }
 
     private void OnTriggerEnter(Collider other)

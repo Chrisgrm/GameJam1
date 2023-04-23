@@ -8,6 +8,7 @@ TagManager:
   - Llave
   - muros
   - ataque
+  - vidas
   layers:
   - Default
   - TransparentFX
