@@ -31,7 +31,7 @@ public class Ataque : MonoBehaviour
         if (collision.gameObject.CompareTag("enemy")) {
             blood.Play();
             Destroy(collision.gameObject);
-            StartCoroutine(DestroyThis());
+            //StartCoroutine(DestroyThis());
 
         }
         if(collision.gameObject) 
@@ -43,7 +43,7 @@ public class Ataque : MonoBehaviour
     }
     IEnumerator DestroyThis()
     {
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(5f);
         Destroy(this.gameObject);
     }
 }

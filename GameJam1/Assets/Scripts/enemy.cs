@@ -22,9 +22,9 @@ public class enemy : MonoBehaviour
     {
         distanceToPlayer = Vector3.Distance(transform.position, transformPlayer.transform.position);
 
-        if (distanceToPlayer < 20) //Condicionamos el arranque
+        if (distanceToPlayer < 40) //Condicionamos el arranque
         {
-            enemyAi.speed = 3;
+            enemyAi.speed = 10;
             enemyAi.SetDestination(transformPlayer.transform.position); //Definimos el destino
             enemyAnim.SetFloat("Speed", 0.15f);
         }

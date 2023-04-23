@@ -6,17 +6,17 @@ public class PlayerController : MonoBehaviour
 {
     private float inputHorizontal;
     private float inputVertical;
-    private float rotationSpeed = 200;
-    private float speed = 10;
-    private int vidas = 3;
-    private Vector3 updatePosition;
+    private float rotationSpeed = 100;
+    private float speed = 200;
+    public int vidas = 3;
+    
     public GameObject prefabAtaque;
-    private float enfriamientoAtaque = 1f;
+    private float enfriamientoAtaque = 0.3f;
     float contador = 0;
     Vector3 offSet = new Vector3(0, 2, 2);
     Animator animatorPlayer;
     public int llaves;
-    bool muerto = false;
+    public bool muerto = false;
     private AudioSource playerAudio;
     public AudioClip shotSound;
     public AudioClip keySound;
@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public ParticleSystem keyParticle;
     private Rigidbody rb;
     private Transform atackPosition;
+    bool muertoSound = false;
 
     void Start()
     {
@@ -40,7 +41,7 @@ public class PlayerController : MonoBehaviour
         
         inputHorizontal = Input.GetAxis("Horizontal");
         inputVertical = Input.GetAxis("Vertical");
-        updatePosition = new Vector3(0, 0, inputVertical);
+        
         animatorPlayer.SetFloat("speedWalk", inputVertical);        
         transform.Rotate(Vector3.up * inputHorizontal * rotationSpeed * Time.deltaTime);
         
@@ -57,15 +58,22 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * inputVertical * speed * Time.deltaTime);
-        //rb.AddForce(updatePosition * speed, ForceMode.Impulse);
+
+        rb.AddRelativeForce(Vector3.forward * inputVertical * speed);
+        transform.Rotate(Vector3.up * inputHorizontal * 5);
+
+        if (inputVertical == 0)
+        {
+            rb.velocity = Vector3.zero;
+        }
+     
     }
 
     void ataque()
     {
 
 
-        if (contador > enfriamientoAtaque)
+        if (contador > enfriamientoAtaque && !muerto)
         {
             Instantiate(prefabAtaque, atackPosition.position , Quaternion.identity);
             contador = 0;
@@ -80,28 +88,31 @@ public class PlayerController : MonoBehaviour
         if(other.gameObject.CompareTag("enemy")){
 
             vidas -= 1;
-            print(vidas);
-            print("auch");
-            //playerAudio.PlayOneShot(zombieAttackSound,1.0F);
+            if (!muerto)
+            {
+                playerAudio.PlayOneShot(zombieAttackSound, 1.0F);
+            }
+           
         }
-        if (other.gameObject.CompareTag("muros"))
-        {
-            print("toca muro");
-        }
+ 
     }
    
 
     private void muerte()
     {
         muerto = true;
-        playerAudio.PlayOneShot(muerteSound,1.0F);
+        if (!muertoSound) { 
+            playerAudio.PlayOneShot(muerteSound, 1.0F);
+            muertoSound = true;
+        }
+        
 
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Llave")) {
-            print("holaaaa");
+           
             Destroy(other.gameObject);
             llaves += 1;
             playerAudio.PlayOneShot(keySound,1.0F);
