@@ -6,8 +6,8 @@ public class PlayerController : MonoBehaviour
 {
     private float inputHorizontal;
     private float inputVertical;
-    private float rotationSpeed = 100;
-    private float speed = 200;
+    private float rotationSpeed = 70;
+    private float speed = 300;
     public int vidas = 3;
     
     public GameObject prefabAtaque;
@@ -26,6 +26,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rb;
     private Transform atackPosition;
     bool muertoSound = false;
+    public bool victoria = false;
 
     void Start()
     {
@@ -84,7 +85,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        if(other.gameObject.CompareTag("enemy")){
+        if(other.gameObject.CompareTag("enemy") && !victoria){
 
             if(vidas>0)
             {
@@ -118,6 +119,11 @@ public class PlayerController : MonoBehaviour
             playerAudio.PlayOneShot(keySound,1.0F);
             keyParticle.Play();
 
+        }
+        if (other.CompareTag("win"))
+        {
+            print("ganaste");
+            victoria = true;
         }
     }
 

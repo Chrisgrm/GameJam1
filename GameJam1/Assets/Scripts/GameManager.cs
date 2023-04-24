@@ -29,14 +29,11 @@ public class GameManager : MonoBehaviour
         verificadorDeLlaves();
         verificadorDeVidas();
         verificadorDeGameOver();
+        verificadorVictoria();
+
+
     }
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("win"))
-        {
-            victoria();
-        }
-    }
+ 
     void verificadorDeVidas()
     {
         switch (player.vidas)
@@ -74,7 +71,7 @@ public class GameManager : MonoBehaviour
             exitDoor.SetActive(false);
         }
 
-        //keyText.text = player.llaves + "/3"; 
+        keyText.text = player.llaves + "/3"; 
     }
     void verificadorDeGameOver()
     {
@@ -90,9 +87,13 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public void victoria()
+    public void verificadorVictoria()
     {
-        panelVictoria.SetActive(true);
+
+        if (player.victoria)
+        {
+            panelVictoria.SetActive(true);
+        }
     }
 
 

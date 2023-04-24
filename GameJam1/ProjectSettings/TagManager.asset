@@ -9,6 +9,7 @@ TagManager:
   - muros
   - ataque
   - vidas
+  - win
   layers:
   - Default
   - TransparentFX
